@@ -33,6 +33,7 @@
 </script>
 <style>
 :root{--bg:#050A18;--ink:#E8EEFC;--muted:#9AA9C7;--cy:#22D3EE;--bl:#3B82F6;--vi:#8B5CF6;--line:rgba(148,163,184,.2);--glass:rgba(13,22,44,.62);color-scheme:dark}
+:root[data-theme="light"]{--bg:#F4F7FC;--ink:#172033;--muted:#5C6B82;--line:rgba(71,85,105,.18);--glass:rgba(255,255,255,.78);color-scheme:light}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 body{margin:0;color:var(--ink);font:400 1.0625rem/1.65 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(900px 600px at 85% -5%,rgba(59,130,246,.28),transparent 60%),radial-gradient(700px 500px at -5% 30%,rgba(139,92,246,.2),transparent 60%),radial-gradient(800px 500px at 60% 100%,rgba(34,211,238,.12),transparent 60%),var(--bg);background-attachment:fixed}
@@ -43,11 +44,19 @@ a{color:var(--cy);text-underline-offset:3px}
 a:focus-visible,button:focus-visible{outline:3px solid var(--cy);outline-offset:3px;border-radius:6px}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 header.top{position:sticky;top:0;z-index:5;background:rgba(5,10,24,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+:root[data-theme="light"] header.top{background:rgba(244,247,252,.82)}
 header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;flex-wrap:wrap}
+.header-actions{display:flex;align-items:center;gap:14px}
 .brand{font:700 1.15rem "Space Grotesk",sans-serif;color:var(--ink);text-decoration:none}
 .brand b{color:var(--cy)}
 nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:.93rem}
 nav a:hover{color:var(--cy)}
+.theme-toggle{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--glass);color:var(--ink);font-size:1.1rem;cursor:pointer;transition:transform .2s,border-color .2s}
+.theme-toggle:hover{transform:rotate(12deg);border-color:var(--cy)}
+:root[data-theme="light"] body{background:radial-gradient(900px 600px at 85% -5%,rgba(59,130,246,.16),transparent 60%),radial-gradient(700px 500px at -5% 30%,rgba(139,92,246,.12),transparent 60%),var(--bg)}
+:root[data-theme="light"] body::before{background-image:linear-gradient(rgba(71,85,105,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(71,85,105,.08) 1px,transparent 1px)}
+:root[data-theme="light"] .chips li{color:#075985;background:rgba(34,211,238,.12)}
+:root[data-theme="light"] .card p,:root[data-theme="light"] .item p,:root[data-theme="light"] .item ul,:root[data-theme="light"] .two ul{color:#3E4C63}
 .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;padding:72px 0 40px}
 .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--glass);border-radius:999px;padding:5px 14px;font-size:.9rem;color:var(--muted)}
 .pill i{width:8px;height:8px;border-radius:50%;background:#34D399;box-shadow:0 0 0 0 rgba(52,211,153,.7);animation:ping 2s infinite}
@@ -117,14 +126,55 @@ footer{padding:28px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
 .js .rv.in{opacity:1;transform:none}
 @media(max-width:820px){.hero{grid-template-columns:1fr;padding-top:44px}.portrait{order:-1;width:min(78%,300px)}.stats{grid-template-columns:1fr 1fr}.about,.grid,.sk,.two{grid-template-columns:1fr}nav a{margin:0 14px 0 0}.f1{left:-4px}.f2{right:-4px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.js .rv{opacity:1;transform:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.role{min-height:1.3em}
+.caret{display:inline-block;width:3px;height:1em;margin-left:4px;vertical-align:-.12em;background:var(--cy);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hire{position:relative;padding:8px 18px;border-radius:999px;background:linear-gradient(100deg,var(--bl),var(--vi));color:#fff;font-weight:600;font-size:.93rem;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.hire::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--cy);animation:ring 2.2s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.35,1.7);opacity:0}}
+.hire:hover{transform:translateY(-2px);box-shadow:0 8px 26px -8px rgba(99,102,241,.9)}
+.cn{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;align-items:start}
+.cl{display:grid;gap:14px}
+.cc{display:flex;align-items:center;gap:14px;padding:16px 18px;color:var(--ink);text-decoration:none}
+.cc b{display:block;font:600 .8rem "Space Grotesk",sans-serif;color:var(--muted)}
+.cc span:last-child{word-break:break-word}
+.ci{flex:none;width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:rgba(34,211,238,.12);color:var(--cy);font:700 1rem "Space Grotesk",sans-serif;transition:transform .3s}
+.cc:hover .ci{transform:rotate(-8deg) scale(1.12)}
+.dm:hover{transform:none}
+.dm h3{margin-bottom:18px;font-size:1.3rem}
+.fld{position:relative;margin-bottom:16px}
+.fld input,.fld textarea{width:100%;font:inherit;color:var(--ink);background:rgba(148,163,184,.08);border:1px solid var(--line);border-radius:10px;padding:24px 14px 8px;transition:border-color .2s,box-shadow .2s;resize:vertical}
+.fld textarea{min-height:130px}
+.fld label{position:absolute;left:15px;top:15px;color:var(--muted);pointer-events:none;transition:top .2s,font-size .2s,color .2s}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--cy);box-shadow:0 0 0 4px rgba(34,211,238,.15)}
+.fld input:focus+label,.fld input:not(:placeholder-shown)+label,.fld textarea:focus+label,.fld textarea:not(:placeholder-shown)+label{top:6px;font-size:.72rem;color:var(--cy)}
+.send{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:180px;cursor:pointer;color:#fff;font:inherit;font-weight:600}
+.send.busy::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .7s linear infinite}
+.send.done{background:linear-gradient(100deg,#10B981,#34D399)}
+.st{min-height:1.5em;margin:12px 0 0;color:var(--muted);font-size:.92rem}
+.dm.err{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media(max-width:820px){.cn{grid-template-columns:1fr}}
 </style>
 <script>document.documentElement.className="js"</script>
+<script>
+(function(){
+var saved=localStorage.getItem("portfolio-theme");
+var theme=saved||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+document.documentElement.setAttribute("data-theme",theme);
+})();
+</script>
 </head>
 <body>
 <canvas id="net" aria-hidden="true"></canvas>
 <header class="top"><div class="wrap">
  <a class="brand" href="#top">Faysal<b>.</b>Alam</a>
- <nav aria-label="Sections"><a href="#about">About</a><a href="#projects">Projects</a><a href="#research">Research</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#certificates">Certificates</a><a href="#contact">Contact</a></nav>
+ <div class="header-actions">
+  <nav aria-label="Sections"><a href="#about">About</a><a href="#projects">Projects</a><a href="#research">Research</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#certificates">Certificates</a><a href="#contact">Contact</a></nav>
+  <a class="hire" href="#contact">Hire me</a>
+  <button class="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch theme"><span aria-hidden="true">☀</span></button>
+ </div>
 </div></header>
 
 <main id="top"><div class="wrap">
@@ -132,7 +182,7 @@ footer{padding:28px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
   <div>
    <span class="pill"><i></i>Open to entry-level roles · Dhaka</span>
    <h1>Faysal <span class="g">Alam</span></h1>
-   <p class="role"><span class="g">Information Systems</span> Analyst</p>
+   <p class="role"><span class="sr">I am an Information Systems Analyst</span><span aria-hidden="true">I am <span class="g" id="typed">an Information Systems Analyst</span><span class="caret"></span></span></p>
    <p class="tag">Bridging Business &amp; Technology</p>
    <p class="lead">Final-year CSE student at AIUB (graduating 2027) who combines four years of running a real business with training in systems analysis, SQL databases and web development. Seeking an entry-level Systems Analyst, Business Analyst or Junior Developer role.</p>
    <ul class="chips"><li>SQL</li><li>Data Analysis</li><li>Systems Analysis</li><li>Business Process</li><li>Information Systems</li></ul>
@@ -253,21 +303,46 @@ footer{padding:28px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
  <div class="card rv"><h3>Languages</h3><ul style="margin-top:12px"><li>Bangla</li><li>English</li><li>Hindi</li><li>Urdu</li></ul></div>
 </div></section>
 
-<section id="contact"><div class="wrap"><div class="card cta rv">
- <h2>Let’s work together</h2>
- <p class="sub" style="margin:0 auto 24px">I’m open to Systems Analyst, Business Analyst and Junior Developer roles in Dhaka. Email is the fastest way to reach me.</p>
- <div class="btns">
-  <a class="btn primary" href="mailto:faysalalam525@gmail.com">faysalalam525@gmail.com</a>
-  <a class="btn" href="assets/Faysal_Alam_CV.pdf" download>Download CV</a>
-  <a class="btn" href="https://www.linkedin.com/in/faysal-alam-39b5a2278/" rel="noopener">LinkedIn</a>
-  <a class="btn" href="https://github.com/faysalnoob" rel="noopener">GitHub</a>
+<section id="contact"><div class="wrap">
+ <h2>Let’s connect &amp; collaborate</h2>
+ <p class="sub">I’m open to Systems Analyst, Business Analyst and Junior Developer roles in Dhaka. Send a message here or use any link below.</p>
+ <div class="cn rv">
+  <div class="cl">
+   <a class="card cc" href="mailto:faysalalam525@gmail.com"><span class="ci" aria-hidden="true">@</span><span><b>Email</b>faysalalam525@gmail.com</span></a>
+   <a class="card cc" href="https://www.linkedin.com/in/faysal-alam-39b5a2278/" rel="noopener"><span class="ci" aria-hidden="true">in</span><span><b>LinkedIn</b>faysal-alam</span></a>
+   <a class="card cc" href="https://github.com/faysalnoob" rel="noopener"><span class="ci" aria-hidden="true">&lt;/&gt;</span><span><b>GitHub</b>faysalnoob</span></a>
+   <a class="card cc" href="assets/Faysal_Alam_CV.pdf" download><span class="ci" aria-hidden="true">CV</span><span><b>Resume</b>Download PDF</span></a>
+  </div>
+  <form class="card dm" id="dm" novalidate>
+   <h3>Send a direct message</h3>
+   <div class="fld"><input id="fn" type="text" placeholder=" " autocomplete="name" required><label for="fn">Your name</label></div>
+   <div class="fld"><input id="fe" type="email" placeholder=" " autocomplete="email" required><label for="fe">Your email</label></div>
+   <div class="fld"><textarea id="fm" placeholder=" " required></textarea><label for="fm">Your message</label></div>
+   <button class="btn primary send" type="submit"><span>Send message</span></button>
+   <p class="st" role="status" aria-live="polite"></p>
+  </form>
  </div>
-</div></div></section>
+</div></section>
 </main>
 <footer>© 2026 Faysal Alam · Dhaka, Bangladesh</footer>
 
 <script>
 (function(){
+var themeButton=document.querySelector(".theme-toggle");
+var themeMeta=document.querySelector('meta[name="theme-color"]');
+function updateTheme(theme){
+ document.documentElement.setAttribute("data-theme",theme);
+ themeButton.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+ themeButton.setAttribute("title",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+ themeButton.querySelector("span").textContent=theme==="dark"?"☀":"☾";
+ if(themeMeta)themeMeta.setAttribute("content",theme==="dark"?"#050A18":"#F4F7FC");
+}
+updateTheme(document.documentElement.getAttribute("data-theme")||"dark");
+themeButton.addEventListener("click",function(){
+ var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+ updateTheme(next);
+ localStorage.setItem("portfolio-theme",next);
+});
 var els=document.querySelectorAll(".rv");
 if("IntersectionObserver" in window){var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.12});els.forEach(function(el){io.observe(el)})}else{els.forEach(function(el){el.classList.add("in")})}
 var c=document.getElementById("net"),x=c.getContext("2d"),P=[],W,H,still=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -278,6 +353,28 @@ x.fillStyle="rgba(34,211,238,.7)";x.beginPath();x.arc(a.x,a.y,1.6,0,6.3);x.fill(
 for(var j=i+1;j<P.length;j++){var b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<130){x.strokeStyle="rgba(59,130,246,"+(.35*(1-d/130))+")";x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}}
 if(!still)requestAnimationFrame(draw)}
 size();draw();addEventListener("resize",function(){size();if(still)draw()});
+})();
+</script>
+<script>
+(function(){
+var t=document.getElementById("typed"),still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(t&&!still){
+ var R=["an Information Systems Analyst","a Business Analyst","a Junior Developer","a Final-year CSE Student"],i=0,j=R[0].length,del=true;
+ (function tick(){var w=R[i],d=del?35:75;j+=del?-1:1;t.textContent=w.slice(0,j);
+  if(!del&&j===w.length){del=true;d=1800}else if(del&&j===0){del=false;i=(i+1)%R.length;d=350}
+  setTimeout(tick,d)})();
+ setTimeout(function(){},0);
+}
+var f=document.getElementById("dm");
+if(f){var b=f.querySelector(".send"),l=b.querySelector("span"),st=f.querySelector(".st");
+f.addEventListener("submit",function(e){e.preventDefault();
+ var n=fn.value.trim(),m=fe.value.trim(),g=fm.value.trim();
+ if(!n||!/^\S+@\S+\.\S+$/.test(m)||!g){st.textContent="Please add your name, a valid email and a message.";f.classList.remove("err");void f.offsetWidth;f.classList.add("err");return}
+ b.classList.add("busy");l.textContent="Sending…";st.textContent="";
+ setTimeout(function(){b.classList.remove("busy");b.classList.add("done");l.textContent="Message ready ✓";
+  st.textContent="Your email app should open with the message filled in. If it doesn’t, write to faysalalam525@gmail.com.";
+  location.href="mailto:faysalalam525@gmail.com?subject="+encodeURIComponent("Portfolio message from "+n)+"&body="+encodeURIComponent(g+"\n\n— "+n+" ("+m+")");
+  f.reset();setTimeout(function(){b.classList.remove("done");l.textContent="Send message"},4000)},900)});}
 })();
 </script>
 </body>
